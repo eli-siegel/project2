@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NBA Trivia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+        <div class="jumbotron">
+            
+            <form action="/submit" method="POST">
+                <input name="nam" placeholder="Your name" required>
+                <% for(var key in data) { %>
+                    <p>QUESTION ID: <%= key %> - <%= data[key].question %></p>
+
+                    <% for(var i= 0; i<data[key].answers.length; i++) { %>
+                        
+                        <input type="radio" name=<%= key %> value=<%= [data[key].answers[i].answer_id, data[key].answers[i].is_correct] %> requTAKETHISOUTLATERired> <%= data[key].answers[i].answer%><br>
+
+                    <% } %>
+                <% } %>
+
+                <button>submit</button>
+            </form>
+        </div>
+        
+</body>
+</html>
