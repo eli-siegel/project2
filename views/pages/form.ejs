@@ -5,20 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NBA Trivia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
     <script src="main.js"></script>
 </head>
 <body>
         <div class="jumbotron">
-            
+            <h1 id = 'title'>NBA Trivia Game</h1>
             <form action="/submit" method="POST">
-                <input name="nam" placeholder="Your name" required>
+                <input name="nam" placeholder="Your name" required><p id = 'req'>Required</p>
                 <% for(var key in data) { %>
-                    <p>QUESTION ID: <%= key %> - <%= data[key].question %></p>
+                    <p>QUESTION #<%= key %> - <%= data[key].question %></p>
 
                     <% for(var i= 0; i<data[key].answers.length; i++) { %>
                         
-                        <input type="radio" name=<%= key %> value=<%= [data[key].answers[i].answer_id, data[key].answers[i].is_correct] %> requTAKETHISOUTLATERired> <%= data[key].answers[i].answer%><br>
+                        <input type="radio" name=<%= key %> value=<%= [data[key].answers[i].answer_id, data[key].answers[i].is_correct] %> required> <%= data[key].answers[i].answer%><br>
 
                     <% } %>
                 <% } %>

@@ -16,6 +16,8 @@ var connection = mysql.createConnection({
     insecureAuth : true
 });
 
+
+
 app.set('view engine', 'ejs');
 
 var bodyParser = require('body-parser')
@@ -63,38 +65,37 @@ app.get('/test', function(req, res) {
 
 app.post('/submit', function(req, res) {
 
-    connection.query("INSERT INTO user_answers (nam, question_id, answer_id) VALUES (?, ?, ?)", [req.body.nam, 1, req.body["1"].split(',')[0]], function(error, results, fields) {
+    connection.query("INSERT INTO user_answers (nam, question_id, answer_id, is_correct) VALUES (?, ?, ?, ?)", [req.body.nam, 1, req.body["1"].split(',')[0], req.body["1"].split(',')[1]], function(error, results, fields) {
         if (error) throw error;
 
-        connection.query("INSERT INTO user_answers (nam, question_id, answer_id) VALUES (?, ?, ?)", [req.body.nam, 2, req.body["2"].split(',')[0]], function(error, results, fields) {
+        connection.query("INSERT INTO user_answers (nam, question_id, answer_id, is_correct) VALUES (?, ?, ?, ?)", [req.body.nam, 2, req.body["2"].split(',')[0], req.body["2"].split(',')[1]], function(error, results, fields) {
             if (error) throw error;
 
-            connection.query("INSERT INTO user_answers (nam, question_id, answer_id) VALUES (?, ?, ?)", [req.body.nam, 3, req.body["3"].split(',')[0]], function(error, results, fields) {
+            connection.query("INSERT INTO user_answers (nam, question_id, answer_id, is_correct) VALUES (?, ?, ?, ?)", [req.body.nam, 3, req.body["3"].split(',')[0], req.body["3"].split(',')[1]], function(error, results, fields) {
                 if (error) throw error;
 
-                connection.query("INSERT INTO user_answers (nam, question_id, answer_id) VALUES (?, ?, ?)", [req.body.nam, 4, req.body["4"].split(',')[0]], function(error, results, fields) {
+                connection.query("INSERT INTO user_answers (nam, question_id, answer_id, is_correct) VALUES (?, ?, ?, ?)", [req.body.nam, 4, req.body["4"].split(',')[0], req.body["4"].split(',')[1]], function(error, results, fields) {
                     if (error) throw error;
 
-                    connection.query("INSERT INTO user_answers (nam, question_id, answer_id) VALUES (?, ?, ?)", [req.body.nam, 5, req.body["5"].split(',')[0]], function(error, results, fields) {
+                    connection.query("INSERT INTO user_answers (nam, question_id, answer_id, is_correct) VALUES (?, ?, ?, ?)", [req.body.nam, 5, req.body["5"].split(',')[0], req.body["5"].split(',')[1]], function(error, results, fields) {
                         if (error) throw error;
 
-                        connection.query("INSERT INTO user_answers (nam, question_id, answer_id) VALUES (?, ?, ?)", [req.body.nam, 6, req.body["6"].split(',')[0]], function(error, results, fields) {
+                        connection.query("INSERT INTO user_answers (nam, question_id, answer_id, is_correct) VALUES (?, ?, ?, ?)", [req.body.nam, 6, req.body["6"].split(',')[0], req.body["6"].split(',')[1]], function(error, results, fields) {
                             if (error) throw error;
 
-                            connection.query("INSERT INTO user_answers (nam, question_id, answer_id) VALUES (?, ?, ?)", [req.body.nam, 7, req.body["7"].split(',')[0]], function(error, results, fields) {
+                            connection.query("INSERT INTO user_answers (nam, question_id, answer_id, is_correct) VALUES (?, ?, ?, ?)", [req.body.nam, 7, req.body["7"].split(',')[0], req.body["7"].split(',')[1]], function(error, results, fields) {
                                 if (error) throw error;
 
-                                connection.query("INSERT INTO user_answers (nam, question_id, answer_id) VALUES (?, ?, ?)", [req.body.nam, 8, req.body["8"].split(',')[0]], function(error, results, fields) {
+                                connection.query("INSERT INTO user_answers (nam, question_id, answer_id, is_correct) VALUES (?, ?, ?, ?)", [req.body.nam, 8, req.body["8"].split(',')[0], req.body["8"].split(',')[1]], function(error, results, fields) {
                                     if (error) throw error;
 
-                                    connection.query("INSERT INTO user_answers (nam, question_id, answer_id) VALUES (?, ?, ?)", [req.body.nam, 9, req.body["9"].split(',')[0]], function(error, results, fields) {
+                                    connection.query("INSERT INTO user_answers (nam, question_id, answer_id, is_correct) VALUES (?, ?, ?, ?)", [req.body.nam, 9, req.body["9"].split(',')[0], req.body["9"].split(',')[1]], function(error, results, fields) {
                                         if (error) throw error;
 
-                                        connection.query("INSERT INTO user_answers (nam, question_id, answer_id) VALUES (?, ?, ?)", [req.body.nam, 10, req.body["10"].split(',')[0]], function(error, results, fields) {
+                                        connection.query("INSERT INTO user_answers (nam, question_id, answer_id, is_correct) VALUES (?, ?, ?, ?)", [req.body.nam, 10, req.body["10"].split(',')[0], req.body["10"].split(',')[1]], function(error, results, fields) {
                                             if (error) throw error;
 
-                                            res.redirect('/');
-                                            res.json(req.body);
+                                            res.render('pages/results')
 
                                         });
                                     });
@@ -141,6 +142,9 @@ app.get('/', function(req, res) {
               })
           }
       }
+
+
+
     //   res.json(data_changed);
 	  
 	  res.render('pages/form', {
@@ -150,6 +154,39 @@ app.get('/', function(req, res) {
 
 	
 });
+
+app.get('/submit', function(req, res) {
+	connection.query('SELECT nam as "name", SUM(is_correct) as score FROM `user_answers` GROUP BY nam;',function (error, results, fields) {
+      if (error) throw error;
+      var question_ids = [];
+      var data_changed = {};
+      
+      for (var i=0; i<results.length; i++){
+          if (!question_ids.includes(results[i].question_id)){
+              
+              question_ids.push(results[i].question_id);
+      
+              data_changed[results[i].question_id] = {
+                  question : results[i].question,
+                  answers: [{
+                      answer_id: results[i].answer_id,
+                      answer: results[i].answer,
+                      is_correct: results[i].is_correct
+                    }]
+              }
+          }else {
+            data_changed[results[i].question_id].answers.push({
+                answer_id: results[i].answer_id,
+                answer: results[i].answer,
+                is_correct: results[i].is_correct
+              })
+          }
+      }
+      res.render('pages/submit', {
+        data: data_changed
+    });
+    });
+})
 
 // app.get('/', function (req, res) {
 //     connection.query('SELECT * FROM questions',function (error, results, fields) {
@@ -198,6 +235,10 @@ app.get('/', function(req, res) {
 //         });
 //     });
 // });
+
+
+//for css stylesheet
+app.use(express.static(__dirname + '/public'));
 
 app.listen(3004, function () {
     console.log('listening on yo 3004')

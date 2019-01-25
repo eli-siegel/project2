@@ -30,7 +30,11 @@ CREATE TABLE user_answers (
     nam VARCHAR(255) NOT NULL,
     question_id INT NOT NULL,
     answer_id INT NOT NULL,
+    is_correct BOOLEAN,
     FOREIGN KEY (question_id) REFERENCES questions(id),
     FOREIGN KEY (answer_id) REFERENCES answers(id),
     PRIMARY KEY (id)
 );
+
+-- query to get total score from each participant
+SELECT nam as 'name', SUM(is_correct) as score FROM `user_answers` GROUP BY nam;
