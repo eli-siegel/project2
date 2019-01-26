@@ -17,29 +17,29 @@
         <table>
 
             <tr>
-                <th id ='header'>Name</th>
+                <th id='header'>Name</th>
                 <th>Score</th>
             </tr>
-            <%for(var i = 0;i < data.length;i++) { %>
+                <%for(var i = 0;i < data.length;i++) { %>
             <tr>
-                <td>
-                    <%=data[i].name%>
-                </td>
-                <td>
-                    <%=data[i].score%>
-                </td>
+            <td>
+                <%=data[i].name%>
+            </td>
+            <td>
+                <%=data[i].score%>
+            </td>
             </tr>
-            <% } %>
+                <% } %>
 
 
         </table>
 
         <hr class="my-4">
 
-        <form id = 'play_2' action="/" method="GET">
+        <form id='play_2' action="/" method="GET">
             <button class="btn btn-primary btn-lg" href="#" role="button">Play Again</button>
         </form>
-        
+
     </div>
 
     <!-- Bootstrap JS script-->

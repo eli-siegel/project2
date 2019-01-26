@@ -58,7 +58,7 @@ app.post('/submit', function(req, res) {
                                         connection.query("INSERT INTO user_answers (nam, question_id, answer_id, is_correct) VALUES (?, ?, ?, ?)", [req.body.nam, 10, req.body["10"].split(',')[0], req.body["10"].split(',')[1]], function(error, results, fields) {
                                             if (error) throw error;
 
-                                            res.render('pages/results')
+                                            res.redirect('/results')
 
                                         });
                                     });
@@ -113,7 +113,24 @@ app.get('/', function(req, res) {
 	
 });
 
+app.get('/results', function(req, res) {
+    //Select all customers and return the result object:
+    connection.query("SELECT nam as 'name', SUM(is_correct) as score FROM `user_answers` GROUP BY nam;", function (err, result, fields) {
+      if (err) throw err;
+      for (var i=0; i<result.length; i++){
+        console.log(result[i].name);
+        console.log(result[i].score);
+        console.log(result[i]);
+      }
+        var x = result.length-1;
+        res.render('pages/results', {
+            data: result,
+            x: result.length-1,
+            score: result[x].score
+        });
+    });
 
+});
 
 
 app.get('/scores', function(req, res) {
@@ -127,7 +144,7 @@ app.get('/scores', function(req, res) {
         console.log(result[i]);
       }
         res.render('pages/scores', {
-            data: result
+            data: result,
         });
     });
 
