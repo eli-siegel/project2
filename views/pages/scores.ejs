@@ -10,18 +10,22 @@
         crossorigin="anonymous">
 </head>
 
-<body>
+<body class = "container" id = 'scorez'>
     <div class="jumbotron">
-        <h1>NBA Trivia Scores</h1>
+        <h1 id='title' class="display-4">NBA Trivia Scores</h1>
 
-        <table>
+        <table id = 'table'>
 
-            <tr>
+            <tr id = 'head'>
+                <th id='header1'>Rank</th>
                 <th id='header'>Name</th>
                 <th>Score</th>
             </tr>
                 <%for(var i = 0;i < data.length;i++) { %>
             <tr>
+            <td>
+                    <%= i + 1 %>
+            </td>
             <td>
                 <%=data[i].name%>
             </td>
@@ -36,8 +40,12 @@
 
         <hr class="my-4">
 
-        <form id='play_2' action="/" method="GET">
-            <button class="btn btn-primary btn-lg" href="#" role="button">Play Again</button>
+        <form action="/" method="GET">
+            <button id='play_2' class="btn btn-primary btn-lg" href="#" role="button">Play Again</button>
+        </form>
+
+        <form action="/results" method="GET">
+            <button id='results' class="btn btn-primary btn-lg" href="#" role="button">Back to Results</button>
         </form>
 
     </div>

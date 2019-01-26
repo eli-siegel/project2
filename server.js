@@ -150,6 +150,7 @@ app.get('/results', function(req, res) {
             data: result,
             x: result.length-1,
             score: result[x].score,
+            name: result[x].name,
             z : x + 1
         });
     });

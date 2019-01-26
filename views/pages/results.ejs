@@ -10,21 +10,21 @@
 	 crossorigin="anonymous">
 </head>
 
-<body class="container">
+<body class="container" id = 'resultz'>
 	<main>
 		<!-- Test taker name input -->
 		<div class="jumbotron">
-			<h1 class="display-4">NBA Trivia</h1>
-
-			<p class="lead">Chickity-Check yo results, son</p>
+			<h1 id='title' class="display-4">NBA Trivia Results</h1>
 
 			<hr class="my-4">
 
-			<h2>You got
+			<h4 id = 'res'>Congratulations, 
+				<%= name%>!<br><br>
+				Your score is:
 				
 				<%= score%>
 				/ 15
-			</h2>
+			</h4>
 				
 
 			<hr class="my-4">

@@ -12,15 +12,15 @@
         crossorigin="anonymous">
 </head>
 
-<body class="container">
+<body class="container" id = 'quiz'>
     <div class="jumbotron">
-        <h1 id='title'>NBA Trivia Game</h1>
+        <h1 id='title' class="display-4">NBA Trivia Game</h1>
         <form action="/submit" method="POST">
             <input name="nam" placeholder="Your name" required>
             <p id='req'></p>
             <% for(var key in data) { %>
             <hr class="my-4">
-            <p>QUESTION #
+            <p id = 'question'>QUESTION #
                 <%= key %> -
                 <%= data[key].question %>
             </p>
@@ -35,7 +35,7 @@
             <% } %>
             <% } %>
             <hr class="my-4">
-            <button>Submit</button>
+            <button class="btn btn-primary btn-lg">Submit</button>
         </form>
     </div>
 
