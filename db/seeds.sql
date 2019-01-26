@@ -8,7 +8,12 @@ INSERT INTO questions (question) VALUES
 ('How many NBA championships did Bill Russell win?'), 
 ('Where did Larry Bird attend college?'), 
 ('Who holds the NBA record for most career 3-point field goals?'), 
-('Which of the following players was not selected #1 overall in the NBA draft?');
+('Which of the following players was not selected #1 overall in the NBA draft?'),
+('Who was the only player to win an MVP Award in both the ABA and NBA?'),
+('Who is the all-time leader in steals in NBA history?'),
+('How many times did Larry Bird win the MVP?'),
+('Which of the following players was not a member of the "Dream Team"?'),
+('Who is the highest-scoring foreign-born player in NBA history?');
 
 INSERT INTO answers (answer, question_id, is_correct) VALUES 
 ('Michael Jordan', 1, false), 
@@ -50,6 +55,31 @@ INSERT INTO answers (answer, question_id, is_correct) VALUES
 ('Kevin Durant', 10, true),
 ('Kwame Brown', 10, false),
 ('Andrew Bogut', 10, false),
-('Andrea Bargnani', 10, false);
+('Andrea Bargnani', 10, false),
+('Moses Malone', 11, false),
+('Julius Erving', 11, true),
+('George Gervin', 11, false),
+('Spencer Haywood', 11, false),
+('Magic Johnson', 12, false),
+('Isaiah Thomas', 12, false),
+('Gary Payton', 12, false),
+('John Stockton', 12, true),
+('2', 13, false),
+('3', 13, true),
+('4', 13, false),
+('5', 13, false),
+('Karl Malone', 14, false),
+('Scottie Pippen', 14, false),
+('David Robinson', 14, false),
+('Isiah Thomas', 14, true),
+('Dirk Nowitzki', 15, true),
+('Hakeem Olajuwon', 15, false),
+('Patrick Ewing', 15, false),
+('Tim Duncan', 15, false);
+
+
+
+
+
 
 SELECT q.id AS question_id, q.question, a.answer, a.is_correct FROM questions q LEFT JOIN answers a ON q.id = a.question_id;
