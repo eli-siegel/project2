@@ -1,4 +1,25 @@
-#req {
+#header {
+    padding-right: 120px;
+}
+
+#play {
     display: inline-block;
-    color: green;
+    margin-left: 40%;
+    margin-right: 40%;
+    width: 20%;
+}
+
+#play_2 {
+    display: inline-block;
+    margin-left: 45%;
+    
+    width: 20%;
+}
+
+#scores {
+    display: inline-block;
+    margin-left: 40%;
+    margin-right: 40%;
+    width: 20%;
+    margin-top: 30px
 }

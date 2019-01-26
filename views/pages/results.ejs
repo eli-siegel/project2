@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8" />
 	<title>NBA Trivia</title>
-	<link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/style.css" />
 	<script src="main.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	 crossorigin="anonymous">
@@ -17,13 +17,23 @@
 			<h1 class="display-4">NBA Trivia</h1>
  
 			<p class="lead">Chickity-Check yo results, son</p>
-			<h2></h2>
+
+			<hr class="my-4">
+
+			<h2>You got<!--score--> X <!--score-->/ 10</h2>
 
 			<hr class="my-4">
 
 			<form action="/" method="GET">
-				<button class="btn btn-primary btn-lg" href="#" role="button">Play Again</button>
+				<button id ='play' class="btn btn-primary btn-lg" href="#" role="button">Play Again</button>
 			</form>
+
+			<form action="/scores" method="GET">
+				<button id = 'scores' class="btn btn-primary btn-lg" href="#" role="button">See how Others did</button>
+			</form>
+			
+
+   
 		</div>
 
 		<!-- Bootstrap JS script-->
@@ -37,6 +47,7 @@
 
 	<footer>
 		<% include ../partials/footer %>
+		
 	</footer>
 
 </body>

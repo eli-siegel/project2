@@ -3,40 +3,43 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NBA Trivia</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/style.css" />
     <script src="main.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
         crossorigin="anonymous">
 </head>
 
-<body class="container">
+<body>
     <div class="jumbotron">
-        <h1 id='title'>NBA Trivia Game</h1>
-        <form action="/submit" method="POST">
-            <input name="nam" placeholder="Your name" required>
-            <p id='req'></p>
-            <% for(var key in data) { %>
-            <hr class="my-4">
-            <p>QUESTION #
-                <%= key %> -
-                <%= data[key].question %>
-            </p>
+        <h1>NBA Trivia Scores</h1>
 
-            <% for(var i= 0; i<data[key].answers.length; i++) { %>
+        <table>
 
-
-            <input type="radio" name=<%=key %> value=
-            <%= [data[key].answers[i].answer_id, data[key].answers[i].is_correct] %> required>
-            <%= data[key].answers[i].answer%><br>
-
+            <tr>
+                <th id ='header'>Name</th>
+                <th>Score</th>
+            </tr>
+            <%for(var i = 0;i < data.length;i++) { %>
+            <tr>
+                <td>
+                    <%=data[i].name%>
+                </td>
+                <td>
+                    <%=data[i].score%>
+                </td>
+            </tr>
             <% } %>
-            <% } %>
-            <hr class="my-4">
-            <button>Submit</button>
+
+
+        </table>
+
+        <hr class="my-4">
+
+        <form id = 'play_2' action="/" method="GET">
+            <button class="btn btn-primary btn-lg" href="#" role="button">Play Again</button>
         </form>
+        
     </div>
 
     <!-- Bootstrap JS script-->
@@ -46,7 +49,7 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
-
+    <!-- Bootstrap JS script-->
 
     <footer>
         <% include ../partials/footer %>

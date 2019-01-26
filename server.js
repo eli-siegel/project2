@@ -25,43 +25,6 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(bodyParser.json())
-app.get('/test', function(req, res) {
-    res.render()
-	// connection.query('SELECT q.id AS question_id, q.question, a.id as answer_id, a.answer, a.is_correct FROM questions q LEFT JOIN answers a ON q.id = a.question_id',function (error, results, fields) {
-    //   if (error) throw error;
-    //   var question_ids = [];
-    //   var data_changed = {};
-      
-    //   for (var i=0; i<results.length; i++){
-    //       if (!question_ids.includes(results[i].question_id)){
-              
-    //           question_ids.push(results[i].question_id);
-      
-    //           data_changed[results[i].question_id] = {
-    //               question : results[i].question,
-    //               answers: [{
-    //                   answer_id: results[i].answer_id,
-    //                   answer: results[i].answer,
-    //                   is_correct: results[i].is_correct
-    //                 }]
-    //           }
-    //       }else {
-    //         data_changed[results[i].question_id].answers.push({
-    //             answer_id: results[i].answer_id,
-    //             answer: results[i].answer,
-    //             is_correct: results[i].is_correct
-    //           })
-    //       }
-    //   }
-    //   res.json(data_changed);
-	  
-	//   res.render('pages/form', {
-	//   	data: data_changed
-	//   });
-	// });
-
-	
-});
 
 app.post('/submit', function(req, res) {
 
@@ -107,11 +70,6 @@ app.post('/submit', function(req, res) {
             });
         });
     });
-    
-    // 2. calculate their score 
-    // 3. make a highscore table 
-    // 4. put their score into the high scores table
-    // 5. send the user to a highscores page where they can see how they did
 })
 
 
@@ -155,87 +113,25 @@ app.get('/', function(req, res) {
 	
 });
 
-app.get('/submit', function(req, res) {
-	connection.query('SELECT nam as "name", SUM(is_correct) as score FROM `user_answers` GROUP BY nam;',function (error, results, fields) {
-      if (error) throw error;
-      var question_ids = [];
-      var data_changed = {};
-      
-      for (var i=0; i<results.length; i++){
-          if (!question_ids.includes(results[i].question_id)){
-              
-              question_ids.push(results[i].question_id);
-      
-              data_changed[results[i].question_id] = {
-                  question : results[i].question,
-                  answers: [{
-                      answer_id: results[i].answer_id,
-                      answer: results[i].answer,
-                      is_correct: results[i].is_correct
-                    }]
-              }
-          }else {
-            data_changed[results[i].question_id].answers.push({
-                answer_id: results[i].answer_id,
-                answer: results[i].answer,
-                is_correct: results[i].is_correct
-              })
-          }
+
+
+
+app.get('/scores', function(req, res) {
+    //Select all customers and return the result object:
+    connection.query("SELECT nam as 'name', SUM(is_correct) as score FROM `user_answers` GROUP BY nam ORDER BY score DESC;", function (err, result, fields) {
+      if (err) throw err;
+      for (var i=0; i<result.length; i++){
+        console.log(result[i].name);
+        console.log(result[i].score);
+        console.log(result[i].user_id);
+        console.log(result[i]);
       }
-      res.render('pages/submit', {
-        data: data_changed
+        res.render('pages/scores', {
+            data: result
+        });
     });
-    });
-})
 
-// app.get('/', function (req, res) {
-//     connection.query('SELECT * FROM questions',function (error, results, fields) {
-//         if (error) throw error;
-        
-//         res.render('pages/index', {
-//             data: results
-//         });
-// });
-
-// app.post('/submit', function (req, res) {
-//     connection.query("INSERT INTO user (name) VALUES ('?')", [req.body.user], function(error, results, fields) {
-//         if (error) throw error;
-//     })
-//     res.redirect('/quiz');
-// })
-
-// app.get('/quiz', function(req, res) {
-// 	connection.query('SELECT * FROM questions',function (error, results, fields) {
-// 	  if (error) throw error;
-	  
-// 	  res.render('pages/quiz', {
-// 	  	data: results
-// 	  });
-// 	});
-
-	
-// });
-
-// app.get('/TEST', function (req, res) {
-//     connection.query('SELECT * FROM answers', function (error, results, fields) {
-//         if (error) throw error;
-
-//         res.render('pages/quiz', {
-//             data: results
-//         });
-//     });
-// });
-
-// app.get('/', function (req, res){
-//     connection.query('SELECT * FROM answers', function(error, results, fields) {
-//         if (error) throw error;
-
-//         res.render('pages/quiz', {
-//             data: results
-//         });
-//     });
-// });
-
+});
 
 //for css stylesheet
 app.use(express.static(__dirname + '/public'));
