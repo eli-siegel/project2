@@ -166,7 +166,6 @@ app.get('/scores', function(req, res) {
         console.log(result.length)
         console.log(result[i].name);
         console.log(result[i].score);
-        console.log(result[i].user_id);
         console.log(result[i]);
       }
         res.render('pages/scores', {
